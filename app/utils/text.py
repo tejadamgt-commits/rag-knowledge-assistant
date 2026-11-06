@@ -1,5 +1,5 @@
 def normalize_text(text: str) -> str:
-    """Normalize whitespace in a text document."""
+    """Normalize whitespace in text."""
     return " ".join(text.split())
 
 
@@ -21,12 +21,16 @@ def chunk_text(
     if not words:
         return []
 
-    chunks = []
     step = chunk_size - overlap
+    chunks = []
 
     for start in range(0, len(words), step):
-        chunk = words[start : start + chunk_size]
-        if chunk:
-            chunks.append(" ".join(chunk))
+        chunk_words = words[start : start + chunk_size]
+
+        if chunk_words:
+            chunks.append(" ".join(chunk_words))
+
+        if start + chunk_size >= len(words):
+            break
 
     return chunks
